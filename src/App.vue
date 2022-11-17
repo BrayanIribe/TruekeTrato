@@ -1,28 +1,29 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <IHeader v-if="!$hideHeader" />
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import IHeader from "./components/IHeader";
+import Router from "@/router";
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  name: "App",
+  components: { IHeader },
+  computed: {
+    $hideHeader() {
+      const { name } = this.$route;
+      const route = Router.find((e) => e.name === name);
+      return route.hideHeader === true;
+    },
+  },
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.i-border-bottom {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 }
 </style>
